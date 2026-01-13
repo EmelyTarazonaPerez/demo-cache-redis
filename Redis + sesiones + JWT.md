@@ -1,5 +1,5 @@
-## 🧠 REDIS — RESUMEN COMPLETO (JWT & SESIONES)
----
+# 🧠 REDIS — RESUMEN COMPLETO (JWT & SESIONES)
+
 ## 1️⃣ ¿Qué es Redis en tu proyecto?
 
 Redis lo estás usando como:
@@ -8,79 +8,71 @@ Redis lo estás usando como:
 - 🔐 control de sesiones
 - 🚫 invalidar JWT (logout real)
 - 👉 Aunque JWT es stateless, Redi le da estado.
+---
 
 ## 2️⃣ Tipos de datos de Redis (los importantes)
-#🔹 STRING
+### 🔹 STRING
 
 - Guarda un solo valor
-
--Se sobrescribe completo
+- Se sobrescribe completo
 
 Spring
-
+```
 redisTemplate.opsForValue().set(key, value);
-
-
+```
 Redis CLI
-
+```
 SET key value
 GET key
 TYPE key   # string
-
+```
 
 📌 Útil para flags, tokens simples, contadores pequeños.
+---
 
-🔹 HASH ⭐ (el más importante para sesiones)
-
-Similar a un objeto / mapa
-
-Ideal para guardar información estructurada
+### 🔹 HASH ⭐ (el más importante para sesiones)
+- Similar a un objeto / mapa
+- Ideal para guardar información estructurada
 
 Spring
-
+```
 redisTemplate.opsForHash().put(key, field, value);
 redisTemplate.opsForHash().putAll(key, map);
-
-
+```
 Redis CLI
-
+```
 HSET key field value
 HGET key field
 HGETALL key
 TYPE key   # hash
+```
 
+### 📌 Ideal para:
+- sesiones
+- dispositivos
+- metadata
+---
 
-📌 Ideal para:
+### 🔹 SET (multi-sesión)
 
-sesiones
-
-dispositivos
-
-metadata
-
-🔹 SET (multi-sesión)
-
-No admite duplicados
-
-Perfecto para listas de JTIs
+- No admite duplicados
+- Perfecto para listas de JTIs
 
 Spring
-
+```
 redisTemplate.opsForSet().add(key, value);
-
-
+```
 Redis CLI
-
+```
 SADD key value
 SMEMBERS key
 TYPE key   # set
-
+```
 
 📌 Ideal para:
-
-múltiples sesiones por usuario
-
-dispositivos conectados
+- múltiples sesiones por usuario
+- dispositivos conectados
+---
 
 3️⃣ Estructura CORRECTA de sesiones (la clave de todo)
 ✔️ Una sesión = un JWT = un JTI = un HASH
