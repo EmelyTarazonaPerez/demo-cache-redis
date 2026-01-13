@@ -48,21 +48,16 @@ spring-boot-starter-web
 
 ## Habilitador de Cache
 @EnableCaching
-
-## Configuracion Redis yml
-spring:
-  cache:
-    type: redis
-  redis:
-    host: localhost
-    port: 6379
-spring:
-  cache:
-    type: redis
-  redis:
-    host: localhost
-    port: 6379
 ```
+---
+## Configuracion Redis yml
+```xml
+spring.cache.type=redis
+spring.data.redis.host=localhost
+spring.data.redis.port=6379
+spring.cache.redis.time-to-live=600000
+```
+---
 
 🔑 Diseño de Keys (Buenas Prácticas)
 
@@ -100,9 +95,9 @@ El diseño de keys se define en la capa de servicio, preferiblemente centralizad
 - Redis guarda el valor en RAM
 - Spring deserializa al recuperar
 - El diseño del objeto vive únicamente en el código Java.
-
-### 🧹 TTL e Invalidación
-## TTL (obligatorio)
+---
+## 🧹 TTL e Invalidación
+### TTL (obligatorio)
 
 - Evita datos obsoletos y consumo excesivo de memoria.
 - .entryTtl(Duration.ofMinutes(5))
@@ -118,14 +113,14 @@ El diseño de keys se define en la capa de servicio, preferiblemente centralizad
 - Diseñar bien las keys para evitar colisiones
 - Manejar fallos de Redis sin afectar la aplicación
 ---
-### 🚫 Qué NO hacer
+## 🚫 Qué NO hacer
 
 - Cachear en el controller
 - Guardar archivos grandes
 - No usar TTL
 - Usar Redis como base de datos principal
 
-###🎯 Conclusión
+## 🎯 Conclusión
 
 - Reds permite mejorar significativamente el desempeño de aplicaciones Spring Boot.
 - Una implementación correcta requiere no solo agregar dependencias, sino también diseñar claves, definir TTL, manejar serialización e invalidar correctamente el cache.
