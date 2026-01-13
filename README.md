@@ -101,7 +101,7 @@ El diseño de keys se define en la capa de servicio, preferiblemente centralizad
 - Spring deserializa al recuperar
 - El diseño del objeto vive únicamente en el código Java.
 
-###🧹 TTL e Invalidación
+### 🧹 TTL e Invalidación
 ## TTL (obligatorio)
 
 - Evita datos obsoletos y consumo excesivo de memoria.
@@ -109,16 +109,16 @@ El diseño de keys se define en la capa de servicio, preferiblemente centralizad
 - Invalidación de cache
 - Cuando el dato cambia:
 - @CacheEvict(value = "users", key = "#id")
-
-###⚠️ Buenas Prácticas
+---
+### ⚠️ Buenas Prácticas
 
 - Redis es una optimización, no una dependencia crítica
 - Siempre usar TTL
 - Cachear objetos pequeños (KB, no MB)
 - Diseñar bien las keys para evitar colisiones
 - Manejar fallos de Redis sin afectar la aplicación
-
-###🚫 Qué NO hacer
+---
+### 🚫 Qué NO hacer
 
 - Cachear en el controller
 - Guardar archivos grandes
